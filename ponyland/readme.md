@@ -4,7 +4,7 @@
 
 
 # Corpora 
--[List of corpora can be found here](https://ponyland.science.ru.nl/wiki:ponyland:corpora)
+- [List of corpora can be found here](https://ponyland.science.ru.nl/wiki:ponyland:corpora)
 - Can be found at /vol/bigdata/corpora
 
 
