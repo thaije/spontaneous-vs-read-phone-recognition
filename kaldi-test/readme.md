@@ -18,8 +18,7 @@
 - output is saved in 4 files in output/train/
 
 ### Create list of phones from dataset
-- In kaldi-phones.py change the values of two 2 variables to the path
-of this folder + the suffix in the datapath. Change these two variables:
+- In kaldi-phones.py change the values of 2 variables to your correct path:
     - datapath (End without slash)
     - phones_loc (End with slash)
 E.g. change datapath="/home/tjalling/Desktop/ru/arm/kaldi-test/phones-list-input/" to
