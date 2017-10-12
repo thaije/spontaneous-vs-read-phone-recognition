@@ -14,6 +14,8 @@ It is based on research of Danny Merkx.
 - [The research proposal presentation](https://docs.google.com/presentation/d/1moxdcfoUTF0ivlOQkJ4nDlOWQRZFF_PeBAvEmR_P7yM/edit#slide=id.g279c6755aa_0_0)
 - [GitHub repo of Danny Merkx](https://github.com/DannyMerkx/CGN_speech_recognition)
 
+- [Diagram of the pipeline](https://www.draw.io/#G0B-IwinKF28akemphS3RaTGhsRjQ) 
+
 ## Usefull papers:
 - Siniscalchi, S. M., Yu, D., Deng, L., & Lee, H. (2012). Exploiting Deep Neural Networks for Detection-Based Speech Recognition, 106, 148–157.
 - Scharenborg, O. (2010). Modeling the use of durational information in human spoken-word recognition. J Acoust Soc Am, 127(6), 3758–3770.
