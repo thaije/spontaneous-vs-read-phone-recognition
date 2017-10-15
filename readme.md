@@ -5,7 +5,9 @@ It is based on research of Danny Merkx.
 
 
 Preprocessing steps:
-[Preprocessing steps](https://github.com/thaije/spontaneous-vs-read-phone-recognition/blob/master/Label%20preprocessing.jpg "Preprocessing steps")
+![alt text][preprocSteps]
+
+[preprocSteps]: https://github.com/thaije/spontaneous-vs-read-phone-recognition/blob/master/Label%20preprocessing.jpg "Preprocessing steps"
 
 ## Folders
 - CGN: contains the Corpus Gesproken Nederlands dataset (not pushed due to size)
