@@ -20,6 +20,7 @@ Preprocessing steps:
 - [The research proposal](https://docs.google.com/document/d/1pZWNGS6Ybt3M0pSRjHjkKqZ-X_zyD5Eld1MtMw-uO0Q/edit#heading=h.r7ohv33pr6lv)
 - [The research proposal presentation](https://docs.google.com/presentation/d/1moxdcfoUTF0ivlOQkJ4nDlOWQRZFF_PeBAvEmR_P7yM/edit#slide=id.g279c6755aa_0_0)
 - [GitHub repo of Danny Merkx](https://github.com/DannyMerkx/CGN_speech_recognition)
+- [Kaldi force alignment tutorial](https://www.eleanorchodroff.com/tutorial/kaldi/kaldi-forcedalignment.html)
 
 - [Diagram of the pipeline](https://www.draw.io/#G0B-IwinKF28akemphS3RaTGhsRjQ)
 
