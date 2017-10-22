@@ -14,6 +14,16 @@ Preprocessing steps:
 - CGN_speech_recognition: The GitHub repository from our co-supervisor Danny Merkx, on which our research is based.
 - preprocessingKaldi: The preprocessing to prepare the right files for Kaldi, based on code of Danny Merkx.
 - Ponyland: general info on the ponyland servers from the RU university.
+- dataAnalysis: Scripts to analyze and compare used datasets
+
+
+## Datasets
+A comparison is made between Spontaneous and read speech. The dataset used
+is the Corpus Gesproken Nederlands. To be specific folder comp-o/nl and comp-n/nl.
+
+
+### Data Analysis
+[see the results here](https://github.com/thaije/spontaneous-vs-read-phone-recognition/dataAnalysis/readme.md)
 
 
 ## Usefull links:
