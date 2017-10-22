@@ -23,7 +23,7 @@ is the Corpus Gesproken Nederlands. To be specific folder comp-o/nl and comp-n/n
 
 
 ### Data Analysis
-[see the results here](https://github.com/thaije/spontaneous-vs-read-phone-recognition/dataAnalysis/readme.md)
+[see the results here](dataAnalysis)
 
 
 ## Usefull links:
