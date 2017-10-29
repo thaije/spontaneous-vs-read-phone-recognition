@@ -16,13 +16,11 @@ Run with python3: python3 datasetSize.py
 import glob, wave, contextlib
 
 # basepath to the CGN dataset and .wav folders
-wavBasePath = '/home/tjalling/Desktop/ru/arm/CGN/CGN2/data/audio/wav/';
+wavBasePath = '/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognition/CGN/CGN2/data/audio/wav/';
 
 # datasets which are compared, a dataset can consist of multiple folders
 wav_dataset1 = ['comp-o/nl/']
 wav_dataset2 = ['comp-a/nl/']
-
-
 
 
 
