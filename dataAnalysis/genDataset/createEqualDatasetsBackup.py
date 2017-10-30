@@ -10,6 +10,8 @@ This file compares the number of frames, framerate and duration of two
 datasets. Each dataset consisting of a number of folders with .wav files in the
 CNG dataset.
 
+This is a backup file, use balanceDatasets and createCompX.
+
 Run with python3: python3 datasetSize.py
 
 """
