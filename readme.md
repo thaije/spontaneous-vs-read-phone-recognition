@@ -11,7 +11,7 @@ Preprocessing steps:
 - CGN: contains the Corpus Gesproken Nederlands dataset (not pushed due to size)
 - preprocessingKaldi: The preprocessing to prepare the right files for Kaldi, based on code of Danny Merkx.
 - Ponyland: general info on the ponyland servers from the RU university.
-- dataAnalysis: Scripts to analyze, balance and used datasets
+- dataAnalysis: Scripts to analyze, balance and generate used datasets
 
 
 ## Datasets

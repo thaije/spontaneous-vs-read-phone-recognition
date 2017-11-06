@@ -22,6 +22,7 @@ from copyDataSubset import copyDataSubset
 
 
 wavBasePath = '/home/tjalling/Desktop/ru/arm/data/';
+ortBasePath = '/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognition/CGN/CGN2/data/annot/text/ort/';
 
 trainD1 = wavBasePath + "trainset/wav/comp-o/"
 trainD2 = wavBasePath + "trainset/wav/comp-a/"

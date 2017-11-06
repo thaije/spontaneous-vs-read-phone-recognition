@@ -18,7 +18,7 @@ The results:
 
 [datasets_spectogram]: https://github.com/thaije/spontaneous-vs-read-phone-recognition/blob/master/dataAnalysis/soundQuality/soundnorm_spectogram.jpg "Spectogram of two datasets"
 
-# Datasets generation
+# Dataset generation
 
 ## Dataset length
 We compare two datasets from CGN: spontaneous speech and read speech. The datasets
@@ -64,10 +64,6 @@ This will compare the two datasets, and reduce the biggest dataset to the same
 size as the smaller one. The .wav and .ort files of the reduced dataset are
 copied to the new folder which you specified in `balanceDatasets.py`.
 
-To unzip the .ort files:
-- Go into the folder with the .ort.gz files
-- `gunzip *.ort.gz`
-
 ### Output of the balancing script
 ```
 Analyzing comp-o/nl/
@@ -91,6 +87,17 @@ Average duration: 585 seconds
 comp-a/nl/ has been reduced
 ```
 
+## Other Preprocessing
+
+Kaldi requires unzipped .ort files, to unzip all .ort files:
+- Go into the folder with the .ort.gz files
+- `gunzip *.ort.gz`
+
+The script works with mono .wav files, to make all .wav files in a folder mono
+execute the code below.
+- Create a folder "mono"
+- `for file in *.wav;do sox "$file" "mono/$file" remix -;done`
+- Delete the old files, and move the files in /mono to the correct folder
 
 ## Generating comp-x
 The general approach to this is summarized in this figure:
