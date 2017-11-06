@@ -170,7 +170,6 @@ def genOrtFilelist(filelist):
         else:
             filelist[i] = filelist[i].replace('.wav', '.ort')
 
-    print(filelist[-1])
     return filelist
 
 
