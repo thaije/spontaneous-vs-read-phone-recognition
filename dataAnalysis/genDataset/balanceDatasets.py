@@ -12,6 +12,7 @@ Each dataset consisting of a number of folders with .wav files in the
 CNG dataset.
 
 The dataset which was larger and thus shrunk, is copied to the specified folder.
+Both the new subset of .wav files and .ort files.
 
 Run with python3: python3 datasetSize.py
 
@@ -19,15 +20,20 @@ Run with python3: python3 datasetSize.py
 import glob, wave, contextlib, random
 from copyDataSubset import copyDataSubset
 
-# basepath to the CGN dataset and .wav folders
+# basepath to the CGN dataset and .wav folders.
+# NOTE: End with backslash
 wavBasePath = '/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognition/CGN/CGN2/data/audio/wav/';
+ortBasePath = '/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognition/CGN/CGN2/data/annot/text/ort/';
 
-# datasets which are compared, a dataset can consist of multiple folders
-wav_dataset1 = 'comp-o/nl/'
-wav_dataset2 = 'comp-a/nl/'
+# datasets which are compared, a dataset can consist of multiple folders.
+# NOTE: End with backslash
+dataset1 = 'comp-o/nl/'
+dataset2 = 'comp-a/nl/'
 
-goalFolderD1 = '...'
-goalFolderD2 = '...'
+# Only the largest dataset will be reduced and copied to this folder.
+# NOTE: End with backslash. Folders should be pre-existing
+goalFolderD1 = '/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognition/CGN/reducedData/comp-o-reduced/'
+goalFolderD2 = '/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognition/CGN/reducedData/comp-a-reduced/'
 
 # declare some global variables
 shrinkedDataset = False
@@ -82,18 +88,18 @@ def getFilelist(folder):
     return glob.glob(folderPath+"*.wav")
 
 
-def balanceDatasets(wav_dataset1, wav_dataset2):
+def balanceDatasets(dataset1, dataset2):
     global datasetShrinked
     global compxGoalFrames
 
     # get results of dataset 1
-    print ("Analyzing %s" % wav_dataset1)
-    filelist1 = getFilelist(wav_dataset1)
+    print ("Analyzing %s" % dataset1)
+    filelist1 = getFilelist(dataset1)
     [totalFrames1, totalDuration1] = estimateFolderSize(filelist1, True)
 
     # Get results of dataset 2
-    print ("Analyzing %s" % wav_dataset2)
-    filelist2 = getFilelist(wav_dataset2)
+    print ("Analyzing %s" % dataset2)
+    filelist2 = getFilelist(dataset2)
     [totalFrames2, totalDuration2] = estimateFolderSize(filelist2, True)
 
     print("------------------------------------")
@@ -102,25 +108,25 @@ def balanceDatasets(wav_dataset1, wav_dataset2):
 
     # shrink dataset 2 if it is bigger
     if totalFrames2 > totalFrames1:
-        print ("%s has more frames, shrinking... " % wav_dataset2)
-        shrinkedDataset = wav_dataset2
-        filelist2 = shrinkDataset(wav_dataset2, filelist2, totalFrames1)
+        print ("%s has more frames, shrinking... " % dataset2)
+        shrinkedDataset = dataset2
+        filelist2 = shrinkDataset(dataset2, filelist2, totalFrames1)
         compxGoalFrames = totalFrames1
 
     # shrink dataset 1 if it is bigger
     else:
-        print ("%s has more frames. shrinking..." % wav_dataset1)
-        shrinkedDataset = wav_dataset1
-        filelist1 = shrinkDataset(wav_dataset1, filelist1, totalFrames2)
+        print ("%s has more frames. shrinking..." % dataset1)
+        shrinkedDataset = dataset1
+        filelist1 = shrinkDataset(dataset1, filelist1, totalFrames2)
         compxGoalFrames = totalFrames2
 
     # print new balanced results
 
     print("Balanced datasets:\n")
-    print ("Analyzing %s" % wav_dataset1)
+    print ("Analyzing %s" % dataset1)
     estimateFolderSize(filelist1, True)
 
-    print ("Analyzing %s" % wav_dataset2)
+    print ("Analyzing %s" % dataset2)
     estimateFolderSize(filelist2, True)
 
     return [filelist1, filelist2]
@@ -163,15 +169,22 @@ def shrinkDataset(dataset, originalFilelist, framesGoal):
 
 
 def main():
+    # balance the datasets and get the new filelist back
+    [filelistD1, filelistD2] = balanceDatasets(dataset1, dataset2)
 
-    [dataset1, dataset2] = balanceDatasets(wav_dataset1, wav_dataset2)
-
-    if shrinkedDataset is wav_dataset1:
-        print ("Copying subset of %s to new folder %s" % (wav_dataset1, goalFolderD1)
-        copyDataSubset(dataset1, goalFolderD1)
+    if shrinkedDataset is dataset1:
+        ortPath = ortBasePath + dataset1
+        print ("%s has been reduced\n" % dataset1)
+        print ("Copying subset of %s to new folder %s" % (dataset1, goalFolderD1))
+        copyDataSubset(filelistD1, ortPath, goalFolderD1)
     else:
-        print ("Copying subset of %s to new folder %s" % (wav_dataset1, goalFolderD1))
-        copyDataSubset(dataset1, goalFolderD2)
+        ortPath = ortBasePath + dataset2
+        print ("%s has been reduced\n" % dataset2)
+        print ("Copying subset of %s to new folder %s" % (dataset2, goalFolderD2))
+        copyDataSubset(filelistD2, ortPath, goalFolderD2)
+
+
+
 
 if __name__ == "__main__":
     main()

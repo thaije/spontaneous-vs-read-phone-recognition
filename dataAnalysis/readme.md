@@ -13,13 +13,14 @@ Do the following steps to analyze the data:
 - Run SoundAnalysis.m with Matlab
 
 
+# Balancing datasets
 
-# Dataset length
+## Dataset length
 We compare two datasets from CGN: spontaneous speech and read speech. The datasets
 are folder comp-o/nl and comp-n/nl in the CNG dataset. We also use a dataset
 which is the combination of the two which we will generate in the next part.
 
-The results of the analysis script (genDataset/datasetSize.py) on these datasets is:
+The results of the initial analysis (genDataset/datasetSize.py) on these datasets is:
 
 ```
 Analyzing dataset, consisting of folders: ['comp-o/nl/']
@@ -40,7 +41,7 @@ Average framerate: 16000
 Average duration: 581 seconds
 ```
 
-# Creating equal datasets
+## Creating equal datasets
 As seen in the results above the datasets are not equal. Furthermore, we want
 to compare three datasets which are all, as far as possible, roughly equal in number of
 frames / seconds / speaker characteristics.
@@ -51,4 +52,11 @@ The final three datasets we want are:
 
 How to run:
 - Go to genDataset folder
-- Run `python3 CreateEqualDatasets.py`
+- Set the correct paths at the top of `balanceDatasets.py`
+- Run `python balanceDatasets.py`
+
+This will compare the two datasets, and reduce the biggest dataset to the same
+size as the smaller one. The .wav and .ort files of the reduced dataset are
+copied to the new folder which you specified in `balanceDatasets.py`.
+
+## Creating Comp-x
