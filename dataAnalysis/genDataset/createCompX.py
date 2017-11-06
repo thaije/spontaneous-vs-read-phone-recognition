@@ -160,7 +160,6 @@ def generateCompX(filelistD1, filelistD2, compxGoalFrames):
 # Convert the list with paths to .wav files to the path to .ort files
 def genOrtFilelist(filelist):
 
-    print(filelist[-1])
     for i in range(0,len(filelist)):
         filelist[i] = filelist[i].replace(wavBasePath, ortBasePath)
 
