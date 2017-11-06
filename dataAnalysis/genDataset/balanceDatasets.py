@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -14,7 +13,15 @@ CNG dataset.
 The dataset which was larger and thus shrunk, is copied to the specified folder.
 Both the new subset of .wav files and .ort files.
 
-Run with python3: python3 datasetSize.py
+Run with python 2.x: python datasetSize.pyPath
+
+
+Paths for use on Ponyland
+wavBasePath = '/vol/bigdata2/corpora2/CGN2/data/audio/wav/';
+ortBasePath = '/vol/bigdata2/corpora2/CGN2/data/annot/text/ort/';
+
+goalFolderD1 = '/vol/tensusers/klux/reducedData/comp-o-reduced/'
+goalFolderD2 = '/vol/tensusers/klux/reducedData/comp-a-reduced/'
 
 """
 import glob, wave, contextlib, random

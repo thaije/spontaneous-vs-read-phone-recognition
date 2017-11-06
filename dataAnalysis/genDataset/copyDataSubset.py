@@ -7,8 +7,8 @@ Created on Mon Oct 30 2017
 @author: Tjalling Haije
 
 This file copies receives a filelist of .wav files, and copies them to a
-goalFolder along with the corresponding .ort files.
-The .wav and .ort files are put in a wav and ort subfolder in the goalfolder.
+goalFolder along with the corresponding .ort.gz files.
+The .wav and .ort.gz files are put in a wav and ort subfolder in the goalfolder.
 
 """
 
@@ -37,7 +37,8 @@ def copyDataSubset(wavFilelist, ortPath, goalFolder):
         filename = os.path.splitext(os.path.basename(wavFilePath))[0]
         filelist.append(filename)
         wavFile = filename + ".wav"
-        ortFile = filename + ".ort"
+        #ortFile = filename + ".ort"
+        ortFile = filename + ".ort.gz"
 
         # copy the .wav and .ort file to the destination folders
         shutil.copy(wavFilePath, wavFolder + wavFile)

@@ -2,18 +2,23 @@
 # Sound Quality:
 First concatenate all files in each dataset:
 
-Do steps below for each dataset (nl of comp-o and comp-a in our case):
+Do steps below for each dataset (comp-o/nl and comp-a/nl in our case), to
+concatenate all .wav files into one big file:
 - `sudo apt-get install sox` (on linux)
 - Go to CGN dataset folder containing wav files
 - `sox *.wav results_name_dataset.wav`
 
 Do the following steps to analyze the data:
 - Copy/move the concatenated .wav dataset files to dataAnalysis/soundQuality
-- Edit the variables in SoundAnalysis.m to match the filenames of your generated files
-- Run SoundAnalysis.m with Matlab
+- Edit the variables in SS_wrapperfft.m to match the filenames of your generated files
+- Run SS_wrapperfft.m with Matlab
 
+The results:
+![alt text][datasets_spectogram]
 
-# Balancing datasets
+[datasets_spectogram]: https://github.com/thaije/spontaneous-vs-read-phone-recognition/blob/master/dataAnalysis/soundQuality/soundnorm_spectogram.jpg "Spectogram of two datasets"
+
+# Datasets generation
 
 ## Dataset length
 We compare two datasets from CGN: spontaneous speech and read speech. The datasets
@@ -41,7 +46,7 @@ Average framerate: 16000
 Average duration: 581 seconds
 ```
 
-## Creating equal datasets
+## Balancing datasets
 As seen in the results above the datasets are not equal. Furthermore, we want
 to compare three datasets which are all, as far as possible, roughly equal in number of
 frames / seconds / speaker characteristics.
@@ -59,4 +64,36 @@ This will compare the two datasets, and reduce the biggest dataset to the same
 size as the smaller one. The .wav and .ort files of the reduced dataset are
 copied to the new folder which you specified in `balanceDatasets.py`.
 
-## Creating Comp-x
+To unzip the .ort files:
+- Go into the folder with the .ort.gz files
+- `gunzip *.ort.gz`
+
+### Output of the balancing script
+```
+Analyzing comp-o/nl/
+Processed 561 files
+Total number of frames: 3698852441
+Total duration: 231178 seconds
+Average number of frames: 6593319
+Average framerate: 16000
+Average duration: 412 seconds
+
+
+Analyzing comp-a/nl/
+Processed 395 files
+Total number of frames: 3697994030
+Total duration: 231124 seconds
+Average number of frames: 9362010
+Average framerate: 16000
+Average duration: 585 seconds
+
+
+comp-a/nl/ has been reduced
+```
+
+
+## Generating comp-x
+The general approach to this is summarized in this figure:
+![alt text][genCompX]
+
+[genCompX]: https://github.com/thaije/spontaneous-vs-read-phone-recognition/blob/master/dataAnalysis/genDataset/comp-x-generation.png "Generation of comp-x"

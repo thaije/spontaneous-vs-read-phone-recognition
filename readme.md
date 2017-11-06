@@ -1,8 +1,6 @@
 # Influence of input type on phone recognition using a CNN
 This is a repository containing our files for our research: "What is the influence of input type (read vs. spontaneous) on phone recognition in a deep convolutional neural network".
 The research has been done for the masters course Advanced Research Methods from the Radboud University Nijmegen.
-It is based on research of Danny Merkx.
-
 
 Preprocessing steps:
 ![alt text][preprocSteps]
@@ -11,24 +9,31 @@ Preprocessing steps:
 
 ## Folders
 - CGN: contains the Corpus Gesproken Nederlands dataset (not pushed due to size)
-- CGN_speech_recognition: The GitHub repository from our co-supervisor Danny Merkx, on which our research is based.
 - preprocessingKaldi: The preprocessing to prepare the right files for Kaldi, based on code of Danny Merkx.
 - Ponyland: general info on the ponyland servers from the RU university.
-- dataAnalysis: Scripts to analyze and compare used datasets
+- dataAnalysis: Scripts to analyze, balance and used datasets
 
 
 ## Datasets
 A comparison is made between Spontaneous and read speech. The dataset used
 is the Corpus Gesproken Nederlands. To be specific folder comp-o/nl and comp-n/nl.
+In addition a third balanced dataset comp-x is generated with half spontaneous
+and half read speech.
 
 
 ### Data Analysis
 [see the results here](dataAnalysis)
 
 
+## Used model
+The model which we used can be found [here](https://github.com/schemreier/DNNcm).
+Preprocessing is done using Kaldi.
+
+
 ## Usefull links:
 - [The research proposal](https://docs.google.com/document/d/1pZWNGS6Ybt3M0pSRjHjkKqZ-X_zyD5Eld1MtMw-uO0Q/edit#heading=h.r7ohv33pr6lv)
 - [The research proposal presentation](https://docs.google.com/presentation/d/1moxdcfoUTF0ivlOQkJ4nDlOWQRZFF_PeBAvEmR_P7yM/edit#slide=id.g279c6755aa_0_0)
+- [Github repo with our used model](https://github.com/schemreier/DNNcm)
 - [GitHub repo of Danny Merkx](https://github.com/DannyMerkx/CGN_speech_recognition)
 - [Kaldi training acoustic model tutorial](https://www.eleanorchodroff.com/tutorial/kaldi/kaldi-training.html)
 - [Kaldi force alignment tutorial](https://www.eleanorchodroff.com/tutorial/kaldi/kaldi-forcedalignment.html)
