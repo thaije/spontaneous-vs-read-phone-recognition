@@ -45,6 +45,9 @@ from copyDataSubset import copyDataSubset
 wavBasePath = '/vol/bigdata2/corpora2/CGN2/data/audio/wav/';
 ortBasePath = '/vol/bigdata2/corpora2/CGN2/data/annot/text/ort/';
 
+wavBasePath2 = '/vol/tensusers/klux/reducedData/comp-a-reduced/mono_wav/';
+ortBasePath2 = '/vol/tensusers/klux/reducedData/comp-a-reduced/ort/';
+
 dataset1 = 'comp-o/nl/'
 dataset2 = 'comp-a/nl/'
 
@@ -162,6 +165,7 @@ def genOrtFilelist(filelist):
 
     for i in range(0,len(filelist)):
         filelist[i] = filelist[i].replace(wavBasePath, ortBasePath)
+        filelist[i] = filelist[i].replace(wavBasePath2, ortBasePath2)
 
         # we already unzipped the files in the reducedData folder, take that in account
         if not "reducedData" in filelist[i]:
