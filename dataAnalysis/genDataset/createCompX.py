@@ -61,6 +61,7 @@ testD2 = filelistBasePath + 'comp-a-test.txt'
 goalFolderCompxTrain = "/vol/tensusers/klux/comp-x/train/"
 goalFolderCompxTest = "/vol/tensusers/klux/comp-x/test/"
 
+
 # Datasets are seen as equal when the number of frames differs less than this
 # number.
 # Average number of frames for the files in the datasets is between 10million
@@ -108,9 +109,9 @@ def estimateFolderSize(filelist, printResults):
 
 # generate comp-x from half dataset 1 and half dataset 2
 def generateCompX(filelistD1, filelistD2, compxGoalFrames):
-    print("------------------------------------")
-    print("| Generating comp-x...             |")
-    print("------------------------------------\n")
+    # print("------------------------------------")
+    # print("| Generating comp-x...             |")
+    # print("------------------------------------\n")
 
 
     compxFrames = 0
@@ -183,29 +184,13 @@ def getFilelistFromFile(fname):
     return content
 
 
+
 def main():
 
-    ##############################################
-    # Generate train set
-    # get the filelist of both train sets
-    filelistTrainD1 = getFilelistFromFile(trainD1)
-    filelistTrainD2 = getFilelistFromFile(trainD2)
+    print("------------------------------------")
+    print("| Generating comp-x test set...    |")
+    print("------------------------------------\n")
 
-    # get a goal number of frames for the comp-x training set from dataset 1 or 2
-    [goalFramesTrainset, compxDuration] = estimateFolderSize(filelistTrainD1, False)
-
-    # Generate the train set of comp-x
-    filelistCompxTrainWav = generateCompX(filelistTrainD1, filelistTrainD2, goalFramesTrainset)
-    filelistCompxTrainOrt = genOrtFilelist(copy.copy(filelistCompxTrainWav))
-
-    # copy the files to the new training folder
-    print ("\nCopying .ort files of train set")
-    copyDataSubset(filelistCompxTrainOrt, goalFolderCompxTrain + "ort/comp-x/nl/")
-    print ("\nCopying .wav files of train set")
-    copyDataSubset(filelistCompxTrainWav, goalFolderCompxTrain + "wav/comp-x/nl/")
-
-    ##############################################
-    # Generate test set
     # get the filelist of both train sets
     filelistTestD1 = getFilelistFromFile(testD1)
     filelistTestD2 = getFilelistFromFile(testD2)
@@ -222,6 +207,32 @@ def main():
     copyDataSubset(filelistCompxTestOrt, goalFolderCompxTest + "ort/comp-x/nl/")
     print ("\nCopying .wav files of test set")
     copyDataSubset(filelistCompxTestWav, goalFolderCompxTest + "wav/comp-x/nl/")
+
+    ##################################################
+    print("\n------------------------------------")
+    print("| Generating comp-x train set...   |")
+    print("------------------------------------\n")
+
+    # get the filelist of both train sets
+    filelistTrainD1 = getFilelistFromFile(trainD1)
+    filelistTrainD2 = getFilelistFromFile(trainD2)
+
+    # get a goal number of frames for the comp-x training set from dataset 1 or 2
+    [goalFramesTrainset, compxDuration] = estimateFolderSize(filelistTrainD1, False)
+
+    # remove common files in both train and test sets
+    filelistTrainD1 = list(set(filelistTrainD1).difference(filelistTestD1))
+    filelistTrainD2 = list(set(filelistTrainD2).difference(filelistTestD2))
+
+    # Generate the train set of comp-x
+    filelistCompxTrainWav = generateCompX(filelistTrainD1, filelistTrainD2, goalFramesTrainset)
+    filelistCompxTrainOrt = genOrtFilelist(copy.copy(filelistCompxTrainWav))
+
+    # copy the files to the new training folder
+    print ("\nCopying .ort files of train set")
+    copyDataSubset(filelistCompxTrainOrt, goalFolderCompxTrain + "ort/comp-x/nl/")
+    print ("\nCopying .wav files of train set")
+    copyDataSubset(filelistCompxTrainWav, goalFolderCompxTrain + "wav/comp-x/nl/")
 
 
 if __name__ == "__main__":
