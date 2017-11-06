@@ -16,24 +16,52 @@ The new generated filelists are then copied to specified folders
 
 Run with python3: python3 createCompX.py
 
+
+Paths Tjalling:
+
+wavBasePath = '/vol/bigdata2/corpora2/CGN2/data/audio/wav/'
+ortBasePath = '/vol/bigdata2/corpora2/CGN2/data/annot/text/ort/'
+
+dataset1 = 'comp-o/nl/'
+dataset2 = 'comp-a/nl/'
+
+# set the path to the filelists of the other two datasets
+filelistBasePath = '/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognition/dataAnalysis/genDataset/filelists/'
+
+trainD1 = filelistBasePath + 'comp-o-train.txt'
+trainD2 = filelistBasePath + 'comp-a-train.txt'
+
+testD1 = filelistBasePath + 'comp-o-test.txt'
+testD2 = filelistBasePath + 'comp-a-test.txt'
+
+# folders which will contain the training and test set of comp-x
+goalFolderCompxTrain = "/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognition/CGN/reducedData/comp-x/train/"
+goalFolderCompxTest = "/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognition/CGN/reducedData/comp-x/test/"
 """
-import glob, wave, contextlib, random
+import glob, wave, contextlib, random, copy
 from copyDataSubset import copyDataSubset
 
 
-wavBasePath = '/home/tjalling/Desktop/ru/arm/data/';
-ortBasePath = '/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognition/CGN/CGN2/data/annot/text/ort/';
+wavBasePath = '/vol/bigdata2/corpora2/CGN2/data/audio/wav/';
+ortBasePath = '/vol/bigdata2/corpora2/CGN2/data/annot/text/ort/';
 
-trainD1 = wavBasePath + "trainset/wav/comp-o/"
-trainD2 = wavBasePath + "trainset/wav/comp-a/"
+dataset1 = 'comp-o/nl/'
+dataset2 = 'comp-a/nl/'
 
-testD1 = wavBasePath + "testset/wav/comp-o/"
-testD2 = wavBasePath + "testset/wav/comp-a/"
+# set the path to the filelists of the other two datasets
+filelistBasePath = '/vol/tensusers/klux/spontaneous-vs-read-phone-recognition/dataAnalysis/genDataset/filelists/'
 
-goalFolderCompxTrain = "..."
-goalFolderCompxTest = "..."
+trainD1 = filelistBasePath + 'comp-o-train.txt'
+trainD2 = filelistBasePath + 'comp-a-train.txt'
 
-# Datasets are seen as equal when the number of frames differes less than this
+testD1 = filelistBasePath + 'comp-o-test.txt'
+testD2 = filelistBasePath + 'comp-a-test.txt'
+
+# folders which will contain the training and test set of comp-x
+goalFolderCompxTrain = "/vol/tensusers/klux/comp-x/train/"
+goalFolderCompxTest = "/vol/tensusers/klux/comp-x/test/"
+
+# Datasets are seen as equal when the number of frames differs less than this
 # number.
 # Average number of frames for the files in the datasets is between 10million
 # and 7million, so this should equalize the datasets within 1 audio file difference.
@@ -78,7 +106,7 @@ def estimateFolderSize(filelist, printResults):
     return [totalFrames, totalDuration]
 
 
-
+# generate comp-x from half dataset 1 and half dataset 2
 def generateCompX(filelistD1, filelistD2, compxGoalFrames):
     print("------------------------------------")
     print("| Generating comp-x...             |")
@@ -128,14 +156,31 @@ def generateCompX(filelistD1, filelistD2, compxGoalFrames):
     print("Couldn't find a solution, something is wrong")
 
 
+# Convert the list with paths to .wav files to the path to .ort files
+def genOrtFilelist(filelist):
 
+    print(filelist[-1])
+    for i in range(0,len(filelist)):
+        filelist[i] = filelist[i].replace(wavBasePath, ortBasePath)
+        filelist[i] = filelist[i].replace('.wav', '.ort.gz')
+
+    print(filelist[-1])
+    return filelist
+
+
+# Read in the filepaths from the Kaldi generated file into a list
 def getFilelistFromFile(fname):
 
     with open(fname) as f:
         content = f.readlines()
 
+    # only keep the filepath
+    for i in range(0, len(content)):
+        content[i] = content[i].split()[-1]
+
     # We also want to remove whitespace characters like `\n` at the end of each line
     content = [x.strip() for x in content]
+    return content
 
 
 def main():
@@ -146,28 +191,37 @@ def main():
     filelistTrainD1 = getFilelistFromFile(trainD1)
     filelistTrainD2 = getFilelistFromFile(trainD2)
 
-    # get filelist of the training set dataset 1 or 2
+    # get a goal number of frames for the comp-x training set from dataset 1 or 2
     [goalFramesTrainset, compxDuration] = estimateFolderSize(filelistTrainD1, False)
 
     # Generate the train set of comp-x
-    filelistCompxTrain = generateCompX(filelistTrainD1, filelistTrainD2, goalFramesTrainset);
+    filelistCompxTrainWav = generateCompX(filelistTrainD1, filelistTrainD2, goalFramesTrainset)
+    filelistCompxTrainOrt = genOrtFilelist(copy.copy(filelistCompxTrainWav))
 
-    copyDataSubset(dataset1, goalFolderCompxTrain)
-
+    # copy the files to the new training folder
+    print ("\nCopying .ort files of train set")
+    copyDataSubset(filelistCompxTrainOrt, goalFolderCompxTrain + "ort/comp-x/nl/")
+    print ("\nCopying .wav files of train set")
+    copyDataSubset(filelistCompxTrainWav, goalFolderCompxTrain + "wav/comp-x/nl/")
 
     ##############################################
     # Generate test set
     # get the filelist of both train sets
     filelistTestD1 = getFilelistFromFile(testD1)
-    filelistTestD2 = getFilelistFromFile(trainD2)
+    filelistTestD2 = getFilelistFromFile(testD2)
 
-    # get filelist of the training set dataset 1 or 2
+    # get a goal number of frames for the comp-x test set from dataset 1 or 2
     [goalFramesTestset, compxDuration] = estimateFolderSize(filelistTestD1, False)
 
-    # Generate the train set of comp-x
-    filelistCompxTest = generateCompX(filelistTestD1, filelistTestD2, goalFramesTestset);
+    # Generate the test set of comp-x
+    filelistCompxTestWav = generateCompX(filelistTestD1, filelistTestD2, goalFramesTestset)
+    filelistCompxTestOrt = genOrtFilelist(copy.copy(filelistCompxTestWav))
 
-    copyDataSubset(dataset1, goalFolderCompxTest)
+    # copy the files to the right folder
+    print ("\nCopying .ort files of test set")
+    copyDataSubset(filelistCompxTestOrt, goalFolderCompxTest + "ort/comp-x/nl/")
+    print ("\nCopying .wav files of test set")
+    copyDataSubset(filelistCompxTestWav, goalFolderCompxTest + "wav/comp-x/nl/")
 
 
 if __name__ == "__main__":

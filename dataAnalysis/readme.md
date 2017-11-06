@@ -66,6 +66,11 @@ copied to the new folder which you specified in `balanceDatasets.py`.
 
 ### Output of the balancing script
 ```
+comp-a/nl/ has more frames, shrinking...
+Found solution
+
+Balanced datasets:
+
 Analyzing comp-o/nl/
 Processed 561 files
 Total number of frames: 3698852441
@@ -76,12 +81,12 @@ Average duration: 412 seconds
 
 
 Analyzing comp-a/nl/
-Processed 395 files
-Total number of frames: 3697994030
-Total duration: 231124 seconds
-Average number of frames: 9362010
+Processed 398 files
+Total number of frames: 3707080842
+Total duration: 231692 seconds
+Average number of frames: 9314273
 Average framerate: 16000
-Average duration: 585 seconds
+Average duration: 582 seconds
 
 
 comp-a/nl/ has been reduced
@@ -89,7 +94,7 @@ comp-a/nl/ has been reduced
 
 ## Other Preprocessing
 
-Kaldi requires unzipped .ort files, to unzip all .ort files:
+Kaldi requires unzipped .ort files. To unzip all .ort.gz files:
 - Go into the folder with the .ort.gz files
 - `gunzip *.ort.gz`
 

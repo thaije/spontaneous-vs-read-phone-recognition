@@ -24,7 +24,7 @@ goalFolderD1 = '/vol/tensusers/klux/reducedData/comp-o-reduced/'
 goalFolderD2 = '/vol/tensusers/klux/reducedData/comp-a-reduced/'
 
 """
-import glob, wave, contextlib, random
+import glob, wave, contextlib, random, copy
 from copyDataSubset import copyDataSubset
 
 # basepath to the CGN dataset and .wav folders.
@@ -45,7 +45,7 @@ goalFolderD2 = '/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-recognit
 # declare some global variables
 shrinkedDataset = False
 
-# Datasets are seen as equal when the number of frames differes less than this
+# Datasets are seen as equal when the number of frames differs less than this
 # number.
 # Average number of frames for the files in the datasets is between 10million
 # and 7million, so this should equalize the datasets within 1 audio file difference.
@@ -173,22 +173,42 @@ def shrinkDataset(dataset, originalFilelist, framesGoal):
     return False
 
 
+# Convert the list with paths to .wav files to the path to .ort files
+def genOrtFilelist(filelist):
+
+    print(filelist[-1])
+    for i in range(0,len(filelist)):
+        filelist[i] = filelist[i].replace(wavBasePath, ortBasePath)
+        filelist[i] = filelist[i].replace('.wav', '.ort')
+
+    print(filelist[-1])
+    return filelist
 
 
 def main():
     # balance the datasets and get the new filelist back
-    [filelistD1, filelistD2] = balanceDatasets(dataset1, dataset2)
+    [wavFilelistD1, wavFilelistD2] = balanceDatasets(dataset1, dataset2)
 
     if shrinkedDataset is dataset1:
-        ortPath = ortBasePath + dataset1
+        ortFilelistD1 = genOrtFilelist(copy.copy(wavFilelistD1))
+
         print ("%s has been reduced\n" % dataset1)
         print ("Copying subset of %s to new folder %s" % (dataset1, goalFolderD1))
-        copyDataSubset(filelistD1, ortPath, goalFolderD1)
+
+        print ("\nCopying .ort files")
+        copyDataSubset(ortFilelistD1, goalFolderD1 + "ort/" + dataset1)
+        print ("\nCopying .wav files")
+        copyDataSubset(wavFilelistD1, goalFolderD1 + "wav/" + dataset1)
     else:
-        ortPath = ortBasePath + dataset2
+        ortFilelistD2 = genOrtFilelist(copy.copy(wavFilelistD2))
+
         print ("%s has been reduced\n" % dataset2)
         print ("Copying subset of %s to new folder %s" % (dataset2, goalFolderD2))
-        copyDataSubset(filelistD2, ortPath, goalFolderD2)
+
+        print ("\nCopying .ort files")
+        copyDataSubset(ortFilelistD2, goalFolderD2 + "ort/" + dataset2)
+        print ("\nCopying .wav files")
+        copyDataSubset(wavFilelistD2, goalFolderD2 + "wav/" + dataset2)
 
 
 
