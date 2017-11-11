@@ -33,7 +33,7 @@ def copyDataSubset(filelist, goalFolder):
         filenames.append(filepath)
 
         # copy the file to the destination folder
-        shutil.copy(filepath, goalFolder + filename)
+        # shutil.copy(filepath, goalFolder + filename)
 
     print ("Copying done")
 

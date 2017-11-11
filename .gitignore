@@ -1,5 +1,3 @@
-CGN/CGN2/*
-CGN/reducedData/*
-CGN/trainedData/*
+CGN/*
 *.pyc
 dataAnalysis/soundQuality/*.wav

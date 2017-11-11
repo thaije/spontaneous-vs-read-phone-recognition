@@ -41,10 +41,11 @@ goalFolderCompxTest = "/home/tjalling/Desktop/ru/arm/spontaneous-vs-read-phone-r
 import glob, wave, contextlib, random, copy
 from copyDataSubset import copyDataSubset
 
-
+# paths for comp-o
 wavBasePath = '/vol/bigdata2/corpora2/CGN2/data/audio/wav/';
-ortBasePath = '/vol/bigdata2/corpora2/CGN2/data/annot/text/ort/';
+ortBasePath = '/vol/tensusers/klux/text/ort/';
 
+# paths for comp-a
 wavBasePath2 = '/vol/tensusers/klux/reducedData/comp-a-reduced/mono_wav/';
 ortBasePath2 = '/vol/tensusers/klux/reducedData/comp-a-reduced/ort/';
 
@@ -61,8 +62,7 @@ testD1 = filelistBasePath + 'comp-o-test.txt'
 testD2 = filelistBasePath + 'comp-a-test.txt'
 
 # folders which will contain the training and test set of comp-x
-goalFolderCompxTrain = "/vol/tensusers/klux/comp-x/train/"
-goalFolderCompxTest = "/vol/tensusers/klux/comp-x/test/"
+goalFolderCompx = "/vol/tensusers/klux/comp-x/"
 
 
 # Datasets are seen as equal when the number of frames differs less than this
@@ -211,9 +211,9 @@ def main():
 
     # copy the files to the right folder
     print ("\nCopying .ort files of test set")
-    copyDataSubset(filelistCompxTestOrt, goalFolderCompxTest + "ort/comp-x/nl/")
+    copyDataSubset(filelistCompxTestOrt, goalFolderCompx + "test/ort/comp-x/nl/")
     print ("\nCopying .wav files of test set")
-    copyDataSubset(filelistCompxTestWav, goalFolderCompxTest + "wav/comp-x/nl/")
+    copyDataSubset(filelistCompxTestWav, goalFolderCompx + "test/wav/comp-x/nl/")
 
     ##################################################
     print("\n------------------------------------")
@@ -237,9 +237,20 @@ def main():
 
     # copy the files to the new training folder
     print ("\nCopying .ort files of train set")
-    copyDataSubset(filelistCompxTrainOrt, goalFolderCompxTrain + "ort/comp-x/nl/")
+    copyDataSubset(filelistCompxTrainOrt, goalFolderCompx + "train/ort/comp-x/nl/")
     print ("\nCopying .wav files of train set")
-    copyDataSubset(filelistCompxTrainWav, goalFolderCompxTrain + "wav/comp-x/nl/")
+    copyDataSubset(filelistCompxTrainWav, goalFolderCompx + "train/wav/comp-x/nl/")
+
+
+    ##################################################
+    print("\n------------------------------------")
+    print("| Generating comp-x total set...   |")
+    print("------------------------------------\n")
+
+    print ("\nCopying .ort files of total set")
+    copyDataSubset(filelistCompxTrainOrt, goalFolderCompx + "total/ort/comp-x/nl/")
+    print ("\nCopying .wav files of total set")
+    copyDataSubset(filelistCompxTrainWav, goalFolderCompx + "total/wav/comp-x/nl/")
 
 
 if __name__ == "__main__":
