@@ -168,10 +168,10 @@ def genOrtFilelist(filelist):
         filelist[i] = filelist[i].replace(wavBasePath2, ortBasePath2)
 
         # we already unzipped the files in the reducedData folder, take that in account
-        if not "reducedData" in filelist[i]:
-            filelist[i] = filelist[i].replace('.wav', '.ort.gz')
-        else:
-            filelist[i] = filelist[i].replace('.wav', '.ort')
+        # if not "reducedData" in filelist[i]:
+        #     filelist[i] = filelist[i].replace('.wav', '.ort.gz')
+        # else:
+        filelist[i] = filelist[i].replace('.wav', '.ort')
 
     return filelist
 
