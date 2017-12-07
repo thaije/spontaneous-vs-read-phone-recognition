@@ -1,0 +1,3 @@
+[submodule "DNNcm"]
+	path = DNNcm
+	url = https://github.com/schemreier/DNNcm

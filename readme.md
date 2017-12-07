@@ -1,15 +1,11 @@
 # Influence of input type on phone recognition using a CNN
 This is a repository containing our files for our research: "What is the influence of input type (read vs. spontaneous) on phone recognition in a deep convolutional neural network".
-The research has been done for the masters course Advanced Research Methods from the Radboud University Nijmegen.
+The research has been done for the masters course Advanced Research Methods from the Radboud University Nijmegen. The study was done by training a DNN model on either spontaneous speech,
+read speech, or a combination of both, testing each model on the three types of speech. The dataset used in the Corpus Gesproken Nederlands (CGN) dataset. 
 
-Preprocessing steps:
-![alt text][preprocSteps]
-
-[preprocSteps]: https://github.com/thaije/spontaneous-vs-read-phone-recognition/blob/master/Label%20preprocessing.jpg "Preprocessing steps"
 
 ## Folders
 - CGN: contains the Corpus Gesproken Nederlands dataset (not pushed due to size)
-- preprocessingKaldi: The preprocessing to prepare the right files for Kaldi, based on code of Danny Merkx.
 - Ponyland: general info on the ponyland servers from the RU university.
 - dataAnalysis: Scripts to analyze, balance and generate used datasets
 
@@ -22,12 +18,13 @@ and half read speech.
 
 
 ### Data Analysis
-[see the results here](dataAnalysis)
+[see findings of the dataset analysis here](dataAnalysis)
 
 
 ## Used model
 The model which we used can be found [here](https://github.com/schemreier/DNNcm).
-Preprocessing is done using Kaldi.
+Aside from the data analysis and cleaning described in the dataAnalysis, is preprocessing
+also done using Kaldi [in the script for the DNN training](https://github.com/schemreier/DNNcm).
 
 
 ## Usefull links:
@@ -38,7 +35,6 @@ Preprocessing is done using Kaldi.
 - [Kaldi training acoustic model tutorial](https://www.eleanorchodroff.com/tutorial/kaldi/kaldi-training.html)
 - [Kaldi force alignment tutorial](https://www.eleanorchodroff.com/tutorial/kaldi/kaldi-forcedalignment.html)
 
-- [Diagram of the pipeline](https://www.draw.io/#G0B-IwinKF28akemphS3RaTGhsRjQ)
 
 ## Usefull papers:
 - Siniscalchi, S. M., Yu, D., Deng, L., & Lee, H. (2012). Exploiting Deep Neural Networks for Detection-Based Speech Recognition, 106, 148–157.
